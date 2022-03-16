@@ -1,0 +1,68 @@
+{
+    "task": {
+        "Description": "In This task participants made one of two judgments (manmade, shoebx) about words under two conditions: informed, uninformed. Colored circl cues or the color of the word indicated which judgment to make (red:shoebox, blue:manmade)"
+    },
+    "id": {
+        "Description": "Participant id code"
+    },
+    "stim_set": {
+        "Description": "Stimulus set used for the experiment."
+    },
+    "psychopyVersion": {
+        "Description": "Version of psychopy"
+    },
+    "word": {
+        "Description": "Word stimuli presented"
+    },
+    "manmade": {
+        "Description": "Manmade judgment correct response: Y or N"
+    },
+    "shoebox": {
+        "Description": "Shoebox judgment correct response: Y or N"
+    },
+    "nletters": {
+        "Description": "Word length with levels 4-8"
+    },
+    "freq": {
+        "Description": "Word frequency (Ku?era & Francis, 1967) with levels 1-40"
+    },
+    "nsyllables": {
+        "Description": "Word syllables"
+    },
+    "concreteness": {
+        "Description": "Word concreteness ratings with levels 500-662"
+    },
+    "old_new": {
+        "Description": "Word is old or new for subsequent recognition task"
+    },
+    "study_judgment": {
+        "Description": "Judgment trial type: shoebox or manmade"
+    },
+    "cue_condition": {
+        "Description": "Informative or Uninformative trial"
+    },
+    "study_resp_key": {
+        "Description": "Participants judgment response: j, k, d , f , and na for no responses"
+    },
+    "study_resp": {
+        "Description": "Participants numeric judgment response: 1 (yes:j,f) or 2 (no:k,d), and -99 for no responses"
+    },
+    "study_rt": {
+        "Description": "Participants judgment reaction time, and -99 for no responses"
+    },
+    "correct_hand": {
+        "Decsription": "Did participant use correct hand for semantic judgment: 1 (yes), 0 (no)"
+    },
+    "study_nr": {
+        "Description": "Participant made no response for study judgment"
+    },
+    "good_trial": {
+        "Description": "Mark if trial is a good study trial (i.e., participant responded to judgment in time and with correct hand"
+    },
+    "test_resp": {
+        "Description": "Participant test confidence scale response (1[sure new] - 6 [6 sure old])"
+    },
+    "test_rt": {
+        "Description": "Participants test confidence scale response reaction time"
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "task_test": {
+        "Description": "Participants completed an incidental recognition test. Participants made confidence ratings (1[sure new]-6[sure old] and source memory response (4-shoebox,5-manmade, 6-dont know)"
+    },
+    "id": {
+        "Description": "Participant ID"
+    },
+    "study_cb": {
+        "Description": "Stimulus file counterbalance with levels of ABCCBA,BCAACB, and CABBAC (A: informed, B = uninformed, C = uncued)"
+    },
+    "list": {
+        "Description": "Stimulus file list of words: 1-4"
+    },
+    "test_cb": {
+        "Description": "Stimulus file for old/new test based on counterbalance: test1, test2, test3, test4 "
+    },
+    "word": {
+        "Description": "Word stimuli presented"
+    },
+    "old_new": {
+        "Description": "Word is old or new for subsequent recognition task"
+    },
+    "study_judgment": {
+        "Description": "Study judgment trial type: manmade, shoebox or n/a (new item)"
+    },
+    "cue_condition": {
+        "Description": "Informed, Uninformed, uncued, or new trial"
+    },
+    "item_resp": {
+        "Description": "Participants item memory response with levels 1 (sure new) -6 (sure old), and n/a for no responses"
+    },
+    "item_rt": {
+        "Description": "Participants item memory reaction times with -99 for no responses"
+    },
+    "item_acc": {
+        "Description": "Participants item memory accuracy: 1(correct) 0 (incorrect) with -99 for no responses"
+    },
+    "old_new_resp": {
+        "Description": "Participants item memory response collapsed to old (4-6) or new (1-3) with -99 for no responses"
+    },
+    "sm_resp": {
+        "Description": "Participants source memory response with levels 4-shoebox, 5-manmade, or 6-dont know with -99 for no responses"
+    },
+    "sm_rt": {
+        "Description": "Participants source memory response reaction times with -99 for no responses"
+    },
+    "sm_acc": {
+        "Description": "Participants source memory accuracy: 1(correct), 0(incorrect), -99 (no response)"
+    },
+    "study_resp": {
+        "Description": "Participants study response: 1 (yes), 2 (no)."
+    },
+    "study_rt": {
+        "Description": "Participants study response reaction time and NaN for no responses at study"
+    },
+    "test_good_trial": {
+        "Description": "Numerically mark if trial is good (1) or bad (0) based on participants test performance (e.g., item/source responses), see prereg for more information "
+    },
+    "study_good_trial": {
+        "Description": "Numerically mark if trial is good (1) or bad (0) based on participants study performance (e.g., made a response), see prereg for more information "
+    },
+    "good_trial": {
+        "Description": "Numerically mark if trial is good (1) or bad (0) based on participants study and test performance, see prereg for more information "
+    }
+}

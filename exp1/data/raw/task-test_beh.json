@@ -1,0 +1,65 @@
+{
+    "task_test": {
+        "Description": "Participants completed an incidental recognition test. Participants made confidence ratingss: 1(sure new), 2 (maybe new), 3 (guess new) 4(guess old), 5(maybe old), 6 (sure old)"
+    },
+    "id": {
+        "Description": "Participant ID"
+    },
+    "set": {
+        "Description": "Stimulus file set that was randomly generated (1-64)"
+    },
+    "psychopyVersion": {
+        "Description": "Version of psychopy"
+    },
+    "word": {
+        "Description": "Word stimuli presented"
+    },
+    "manmade": {
+        "Description": "Manmade judgment correct response: Y or N"
+    },
+    "shoebox": {
+        "Description": "Shoebox judgment correct response: Y or N"
+    },
+    "nletters": {
+        "Description": "Word length with levels 4-8"
+    },
+    "freq": {
+        "Description": "Word frequency (Ku?era & Francis, 1967) with levels 1-40"
+    },
+    "nsyllables": {
+        "Description": "Number of word syllables"
+    },
+    "concreteness": {
+        "Description": "Word concreteness ratings with levels 500-662"
+    },
+    "old_new": {
+        "Description": "Word is old or new for subsequent recognition task"
+    },
+    "study_judgment": {
+        "Description": "Study judgment trial type: manmade, shoebox or new"
+    },
+    "cue_condition": {
+        "Description": "Study cue condition: Informed, Uninformed, or new "
+    },
+    "test_resp": {
+        "Description": "Participants memory response on confidence scale (6[sure old]-1[sure new])"
+    },
+    "test_rt": {
+        "Description": "Participants memory reaction times for test response"
+    },
+    "study_resp": {
+        "Description": "Participants study judgment response (Y:1/N:2) and -99 for no responses"
+    },
+    "study_rt": {
+        "Description": "Participants study judgment response reaction time with -99 for no reponses"
+    },
+    "correct_hand": {
+        "Description": "Numerically mark if participants used correct hand during study judgment: 1 (yes) , 0 (no)"
+    },
+    "study_nr": {
+        "Description": "Participant no response for study judgment"
+    },
+    "good_trial": {
+        "Description": "Numerically mark if trial is good (1) or bad (0) based on if participants test performance (item memory and using entire range of confidence scale), see prereg for more information "
+    }
+}
