@@ -1,0 +1,17 @@
+word,manmade,shoebox,nletters,freq,nsyllables,concreteness,item_type,study_judgment,study_condition
+SHRUB,N,N,5,1,1,588,prac_old,manmade,informed
+BRANDY,Y,Y,6,7,2,595,prac_old,manmade,uninformed
+LANTERN,Y,N,7,13,2,630,prac_old,shoebox,uninformed
+MEDICINE,Y,Y,8,30,2,517,prac_old,manmade,informed
+PUMP,Y,Y,4,11,1,556,prac_old,shoebox,informed
+NEWT,N,Y,4,8,1,606,prac_old,manmade,uninformed
+FERRY,Y,N,5,11,2,580,prac_old,shoebox,uninformed
+TICKET,Y,Y,6,16,2,590,prac_old,shoebox,informed
+TRAY,Y,N,4,18,1,590,prac_old,manmade,uninformed
+TORTOISE,N,N,8,3,2,602,prac_old,shoebox,informed
+CHIN,N,Y,4,27,1,592,prac_old,manmade,uninformed
+GRAPE,N,Y,5,3,1,611,prac_old,shoebox,uninformed
+SHAWL,Y,Y,5,3,1,606,prac_old,shoebox,uninformed
+YARD,Y,N,4,35,1,553,prac_old,manmade,informed
+CLAM,N,Y,4,3,1,564,prac_old,manmade,informed
+FOUNTAIN,Y,N,8,18,2,593,prac_old,shoebox,informed

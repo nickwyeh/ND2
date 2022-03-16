@@ -1,0 +1,11 @@
+word,manmade,shoebox,nletters,freq,nsyllables,concreteness,old_new,study_judgment,cue_condition,study_phase,cue_color,box_color,show_cue,show_nocue
+BARN,Y,N,4,29,1,614,old,manmade,informed,informed_prac,cyan,white,1,0
+SHIRT,Y,Y,5,27,1,616,old,manmade,informed,informed_prac,cyan,white,1,0
+PILE,Y,N,4,25,1,504,old,manmade,informed,informed_prac,cyan,white,1,0
+CHICKEN,N,N,7,37,2,614,old,manmade,informed,informed_prac,cyan,white,1,0
+STOMACH,N,Y,7,37,2,617,old,manmade,informed,informed_prac,cyan,white,1,0
+AISLE,Y,N,5,6,1,509,old,shoebox,informed,informed_prac,red,white,1,0
+CAFE,Y,N,4,20,2,568,old,shoebox,informed,informed_prac,red,white,1,0
+CUBE,Y,Y,4,1,1,530,old,shoebox,informed,informed_prac,red,white,1,0
+NEWT,N,Y,4,8,1,606,old,shoebox,informed,informed_prac,red,white,1,0
+TICKET,Y,Y,6,16,2,590,old,shoebox,informed,informed_prac,red,white,1,0

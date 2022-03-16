@@ -1,0 +1,11 @@
+word,manmade,shoebox,nletters,freq,nsyllables,concreteness,old_new,study_judgment,cue_condition,study_phase,cue_color,box_color,show_cue,show_nocue
+SPOON,Y,Y,5,6,1,614,old,manmade,uncued,uncued_prac,n\a,cyan,0,1
+TRACK,Y,N,5,38,1,547,old,manmade,uncued,uncued_prac,n\a,cyan,0,1
+BRANCH,n,n,6,33,1,583,old,manmade,uncued,uncued_prac,n\a,cyan,0,1
+OLIVE,n,y,5,5,2,618,old,manmade,uncued,uncued_prac,n\a,cyan,0,1
+TIRE,y,n,4,22,2,563,old,manmade,uncued,uncued_prac,n\a,cyan,0,1
+PENNY,y,y,5,25,2,606,old,shoebox,uncued,uncued_prac,n\a,red,0,1
+MARBLE,n,y,6,21,1,611,old,shoebox,uncued,uncued_prac,n\a,red,0,1
+CATFISH,n,y,7,2,2,614,old,shoebox,uncued,uncued_prac,n\a,red,0,1
+HAIRPIN,y,y,7,1,2,584,old,shoebox,uncued,uncued_prac,n\a,red,0,1
+KITE,y,n,4,1,1,592,old,shoebox,uncued,uncued_prac,n\a,red,0,1

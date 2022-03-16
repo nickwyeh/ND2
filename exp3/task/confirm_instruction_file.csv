@@ -1,0 +1,7 @@
+question_confirm_instruction_image,answer_confirm_instruction_image,correct_answer
+TypeA_shoe_question.png,TypeA_shoe_answer.png,s
+TypeA_manmade_question.png,TypeA_manmade_answer.png,m
+TypeB_shoe_question.png,TypeB_shoe_answer.png,s
+TypeB_manmade_question.png,TypeB_manmade_answer.png,m
+TypeC_shoe_question.png,TypeC_shoe_answer.png,s
+TypeC_manmade_question.png,TypeC_manmade_answer.png,m
