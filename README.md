@@ -2,6 +2,7 @@
 ##### Open science framework: https://osf.io/ydmun/.
 
 ##### Across experiment findings:
+* Broadly, prestimulus encoding cues benefitted memory performance and the pattern of memory enhancement varied with how memory was assessed. Dual process estimates of familiarity demonstrated a graded pattern with the informativeness of the prestimulus cues (i.e., informative > uninformative > no cues). In addition, both informative and uninformative prestimulus cues enhanced subsequent source memory accuracy for the encoding task compared to the no cue condition
 
 ##### Task overview:
 * The tasks were built in psychopy (https://www.psychopy.org/) with Experiments 2-4 being host online (https://pavlovia.org/). Each experiment consisted of a study and test phase. 
