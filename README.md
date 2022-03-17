@@ -1,4 +1,5 @@
-## ND2 consisted of 4 pre-registered experiments that investigated the relationship between prestimulus cues and memory. For preregistrations see https://osf.io/ydmun/.
+## ND2 consisted of 4 pre-registered experiments that investigated the relationship between prestimulus cues and memory.
+##### Open science framework: https://osf.io/ydmun/.
 
 ##### Across experiment findings:
 
