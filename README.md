@@ -6,6 +6,6 @@
 
 
  ##### Directory structure overview:
-* An example of the directory/folder structure is depicted below. Note, this follows the principals from the brain imaging data structure (https://bids-specification.readthedocs.io/en/stable/). Briefly this repo contains 4 experiments with the individual tasks and data files nested within each experiment.  <p align="center"> <img src="https://github.com/nickwyeh/ND2/blob/main/figures/data_structure.png" width="400">  </p>
+* An example of the directory/folder structure is depicted below. Note, this follows the principals from the brain imaging data structure (https://bids-specification.readthedocs.io/en/stable/). Briefly this repo contains materials for 4 experiments with the individual tasks and data files nested within each experiment. The psychopy task and required materials are located in the task directory. The scripts required to organize, clean, and analyze the data are in matlab and located in the scripts directory. Summary descriptives of interest are ouputed in csv format to the analyses directory.   <p align="center"> <img src="https://github.com/nickwyeh/ND2/blob/main/figures/data_structure.png" width="400">  </p>
  
  ##### Data overview:
