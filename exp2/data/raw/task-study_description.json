@@ -1,74 +1,74 @@
 {
     "task_study": {
-        "Description": "Participants viewed words and provided Yes/No responses to either a shoebox or manmade judgments. Participants received either an informative cue (red or blue square) or uninformative/uncued cue (fixation cross remained) about the judgment to make. Note, uninformative trials/files/instructions/descriptions should be conceptually considered to be uncued/no cue trials.  "
+        "Description": "Participants viewed words and provided Yes/No responses to either a shoebox or manmade semantic judgment. Participants received either an informative cue (red or blue square) or uninformative/uncued cue (fixation cross remained) about the judgment to make. The informed and uninformed/uncued conditions were presented in a blocked format. Note, uninformative trials/files/instructions/descriptions should be conceptually considered to be uncued/no cue trials."
     },
     "id": {
         "Description": "Participant ID"
     },
     "study_cb": {
-        "Description": "Stimulus file counterbalance with levels of A(informative; ABBA) and B (Uninformative/uncued;BAAB)."
+        "Description": "Whether participant was assigned to counterbalance A (blocks: informative-uninformative-uninformative-informative) or B (blocks: uninformative-informative-informative-uninformative)."
     },
     "list": {
-        "Description": "Stimulus file list of words: 1-4"
+        "Description": "Stimuli list assignment for the participant; between lists 1-4"
     },
     "psychopyVersion": {
         "Description": "Version of psychopy"
     },
     "phase_name": {
-        "Description": "Block type and study list: Informed(1 or 2)_study(1-4) or Uninformed(1-2)_study(1-4)"
+        "Description": "Cue block condition and study list: Informed(1 or 2)_study(1-4) or Uninformed(1-2)_study(1-4)"
     },
     "study_phase": {
-        "Description": "Block type: Informed1, Informed2, Uninformed1, Uninformed2"
+        "Description": "Block condition: Informed1, Informed2, Uninformed1, Uninformed2"
     },
     "word": {
         "Description": "Word stimuli presented"
     },
     "manmade": {
-        "Description": "Manmade judgment correct response: Y or N"
+        "Description": "Whether subjective correct response for manmade judgment is Y or N"
     },
     "shoebox": {
-        "Description": "Shoebox judgment correct response: Y or N"
+        "Description": "Whether subjective correct response for shoebox judgment is Y or N"
     },
     "nletters": {
-        "Description": "Word length with levels 4-8"
+        "Description": "Word length; length of word between 4-8 letters"
     },
     "freq": {
-        "Description": "Word frequency (Ku?era & Francis, 1967) with levels 1-40"
+        "Description": "Frequency of word; frequency between 1-40"
     },
     "nsyllables": {
-        "Description": "Word syllables"
+        "Description": "Number of syllables in word"
     },
     "concreteness": {
-        "Description": "Word concreteness ratings with levels 500-662"
+        "Description": "Word concreteness ratings; ratings between 500-662"
     },
     "old_new": {
-        "Description": "Word is old or new for subsequent recognition task"
+        "Description": "Memory type for the word: old (presented at study). Note no new types are presented at study"
     },
     "study_judgment": {
-        "Description": "Study judgment trial type: shoebox or manmade"
+        "Description": "Whether the semantic judgment for the trial is shoebox or manmade"
     },
     "cue_condition": {
-        "Description": "Study cue condition: Informative or Uninformative trial"
+        "Description": "Whether the cue condition for the trial is informative or uninformed"
     },
     "cue_color": {
-        "Description": "Color of cue: cyan (manmade), red (shoebox), and n/a for uninformed trials"
+        "Description": "Whether the color of the cue is cyan (for manmade), red (for shoebox), or n/a (for uninformed trials)"
     },
     "box_color": {
-        "Description": "Color of box around the word: white, cyan, red"
+        "Description": "Whether the color of box around the word is white, cyan, or red"
     },
     "show_cue": {
-        "Description": "Indicates if a cue was shown for this trial: 1 (yes), 0 (no)"
+        "Description": "Whether a cue was shown for this trial: 1 (yes); 0 (no)"
     },
     "study_resp_key": {
-        "Description": "Participants judgment response: j (yes) or k (no), and na for no responses"
+        "Description": "Whether participants judgment response is: j (yes), k (no), or na (no responses)"
     },
     "study_resp": {
-        "Description": "Participants numeric judgment response: 1 (yes:j) or 2 (no:k), and -99 for no responses"
+        "Description": "Whether participants numeric judgment response is: 1 (yes:j), 2 (no:k), or -99 (no responses)"
     },
     "study_rt": {
-        "Description": "Participants judgment reaction time, and -99 for no responses"
+        "Description": "Participants judgment reaction time; (-99 for no responses)"
     },
     "study_good_trial": {
-        "Description": "Numerically mark if trial is good (1) or bad (0) based on if participants made a judgment response, see preregistration for more information"
+        "Description": "Numerically mark if trial is good (1) or bad (0) based on if participants made a judgment response; see preregistration for more information"
     }
 }

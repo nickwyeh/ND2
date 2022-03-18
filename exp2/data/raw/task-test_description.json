@@ -1,62 +1,110 @@
 {
-    "task_test": {
-        "Description": "Participants completed an incidental recognition test. Participants made confidence ratings (1[sure new]-6[sure old] and source memory response (4-shoebox, 5-manmade,6-dont know). Note, uninformative trials/files/instructions/descriptions should be conceptually considered to be uncued/no cue trials. "
+    "task_study": {
+        "Description": "Participants viewed words and provided Yes/No responses to either a shoebox or manmade semantic judgment. Participants received either an informative cue (red or blue square) or uninformative/uncued cue (fixation cross remained) about the judgment to make. The informed and uninformed/uncued conditions were presented in a blocked format. Note, uninformative trials/files/instructions/descriptions should be conceptually considered to be uncued/no cue trials."
     },
     "id": {
         "Description": "Participant ID"
     },
     "study_cb": {
-        "Description": "Stimulus file counterbalance with levels of A(informative; ABBA) and B (Uninformative;BAAB)."
+        "Description": "Whether participant was assigned to counterbalance A (blocks: informative-uninformative-uninformative-informative) or B (blocks: uninformative-informative-informative-uninformative)."
     },
     "list": {
-        "Description": "Stimulus file list of images: 1-4"
+        "Description": "Stimuli list assignment for the participant; between lists 1-4"
     },
-    "test_cb": {
-        "Description": "Stimulus file for old/new test based on counterbalance:test1,test2,test3,test4"
+    "psychopyVersion": {
+        "Description": "Version of psychopy"
+    },
+    "phase_name": {
+        "Description": "Cue block condition and study list: Informed(1 or 2)_study(1-4) or Uninformed(1-2)_study(1-4)"
+    },
+    "study_phase": {
+        "Description": "Block condition: Informed1, Informed2, Uninformed1, Uninformed2"
     },
     "word": {
         "Description": "Word stimuli presented"
     },
+    "manmade": {
+        "Description": "Whether subjective correct response for manmade judgment is Y or N"
+    },
+    "shoebox": {
+        "Description": "Whether subjective correct response for shoebox judgment is Y or N"
+    },
+    "nletters": {
+        "Description": "Word length; length of word between 4-8 letters"
+    },
+    "freq": {
+        "Description": "Frequency of word; frequency between 1-40"
+    },
+    "nsyllables": {
+        "Description": "Number of syllables in word"
+    },
+    "concreteness": {
+        "Description": "Word concreteness ratings; ratings between 500-662"
+    },
     "old_new": {
-        "Description": "Word is old or new for subsequent recognition task"
+        "Description": "Memory type for the word: old (presented at study) or new"
     },
     "study_judgment": {
-        "Description": "Study judgment trial type: manmade, shoebox or n/a (new item)"
+        "Description": "Whether the semantic judgment for the trial is shoebox or manmade"
     },
     "cue_condition": {
-        "Description": "Informed, Uninformed, or new trial"
+        "Description": "Whether the trial is informed, uninformed, or new"
     },
-    "item_resp": {
-        "Description": "Participants item memory response with levels 1 (sure new) -6 (sure old), and n/a for no responses"
+    "cue_color": {
+        "Description": "Whether the color of the cue is cyan (for manmade), red (for shoebox), or n/a (for uninformed trials)"
     },
-    "item_rt": {
-        "Description": "Participants item memory reaction times with -99 for no responses"
+    "box_color": {
+        "Description": "Whether the color of box around the word is white, cyan, or red"
     },
-    "item_acc": {
-        "Description": "Participants item memory accuracy: 1(correct) 0 (incorrect) with -99 for no responses"
+    "show_cue": {
+        "Description": "Whether a cue was shown for this trial: 1 (yes); 0 (no)"
     },
-    "old_new_resp": {
-        "Description": "Participants item memory response collapsed to 1-old (4-6) or 0-new (1-3) with -99 for no responses"
-    },
-    "sm_resp": {
-        "Description": "Participants source memory response with levels 4-shoebox, 5-manmade, or 6-dont know with -99 for no responses"
-    },
-    "sm_rt": {
-        "Description": "Participants source memory response reaction times with -99 for no responses"
-    },
-    "sm_acc": {
-        "Description": "Participants source memory accuracy: 1(correct), 0(incorrect), -99 (no response)"
+    "study_resp_key": {
+        "Description": "Whether participants judgment response is: j (yes), k (no), or na (no responses)"
     },
     "study_resp": {
-        "Description": "Participants study judgment responses: yes (1), no (2), and -99 for no responses"
+        "Description": "Participants study judgment responses: yes (1), no (2); (-99 for no responses)"
     },
     "study_rt": {
-        "Description": "Participants study judgment response reaction times with NaN for no responses"
+        "Description": "Participants study judgment response reaction times; (NaN for no responses)"
     },
     "study_good_trial": {
-        "Description": "Numerically mark if trial is good (1) or bad (0) based on if participants made a study judgment response, see preregistration for more information"
+        "Description": "Numerically mark if trial is good (1) or bad (0) based on if participants made a study judgment response; see preregistration for more information"
+    },
+    "task_test": {
+        "Description": "Participants completed an incidental recognition test. Participants made confidence ratings (1[sure new]-6[sure old] and source memory response (4-shoebox, 5-manmade,6-dont know). Note, uninformative trials/files/instructions/descriptions should be conceptually considered to be uncued/no cue trials. "
+    },
+    "test_cb": {
+        "Description": "Stimulus file based on counterbalance; either test1,test2,test3, or test4"
+    },
+    "item_resp": {
+        "Description": "Participants item memory response: 1 (sure new); -6 (sure old); n/a (no responses)"
+    },
+    "item_rt": {
+        "Description": "Participants item memory reaction times (-99 if no responses)"
+    },
+    "item_acc": {
+        "Description": "Participants item memory accuracy: 1(correct), 0 (incorrect); (-99 if no responses)"
+    },
+    "old_new_resp": {
+        "Description": "Participants item memory response: 1-old (4-6), 0-new (1-3); (-99 if no responses)"
+    },
+    "sm_resp": {
+        "Description": "Participants source memory response: 4-shoebox, 5-manmade, 6-dont know; (-99 if no responses)"
+    },
+    "sm_rt": {
+        "Description": "Participants source memory response reaction times (-99 if no responses)"
+    },
+    "sm_acc": {
+        "Description": "Participants source memory accuracy: 1 (correct), 0 (incorrect); (-99 if no responses)"
+    },
+    "test_good_trial": {
+        "Description": "Whether participant responded in alloted time: 1(responded, good trial); 0(did not respond, not good trial)"
+    },
+    "study_judgement_correct_resp": {
+        "Description": "Participants study judgment responses: yes (1), no (2); (-99 for no responses)"
     },
     "good_trial": {
-        "Description": "Numerically mark if trial is good (1) or bad (0) based on if participants test performance (item/source response), see prereg for more information "
+        "Description": "Numerically mark if trial is good (1) or bad (0) based on if participants test performance; see prereg for more information"
     }
 }

@@ -10,10 +10,17 @@ task_json_name = fullfile(root_dir,project_label,...
 % Define JSON options
 json_options.indent = '    ';    
 
+
+
+
+
+
+
+
 % Make task-study_beh.json (UPDATE DIRECTORY)
 study_json_file = fullfile(pwd,'task-study_beh.json');
 study_json = struct();
-study_json.task.Description = 'In this task participants viewed negative and neutral scenes and were instructed to either decrease their emotions or passively view the scenes. Note decrease instructions were only paired with negative scenes';
+study_json.task.Description = 'In this task participants viewed negative and neutral scenes and were instructed to either decrease their emotions or passively view the scenes.';
 study_json.id.Description              = 'Participant id code';
 study_json.arousal_resp_keys.Description = 'Arousal ratings from 1 = very calm to 6 = very intense';
 study_json.arousal_resp_rt.Description = 'Arousal ratings reaction times';
@@ -37,6 +44,7 @@ study_json.study_R_trial.Description                = 'Decrease/Reappraisal inst
 study_json.study_success_rating.Description                = 'Reappraisal success ratings recoded as success, failure, and na for view trials';
 jsonwrite(study_json_file,study_json,json_options);
 
+
 % Make task-test_beh.json (UPDATE DIRECTORY)
 project_label = 'raw';
 task_id = '';
@@ -47,8 +55,19 @@ task_json_name = fullfile(root_dir,project_label,...
 json_options.indent = '    ';    
 %  task-test information
 
+
+
+
+
+
+
+
+
+
+
+
 test_json_file = fullfile(pwd,'task-test_beh.json');
-test_json.task_test.Description = 'Participants completed an incidental recognition test. Participants were presented whole scenes from the study phase decomposed into objects and background scene components and lure scene components.  Note all backgrounds were neutral but were paired with negative or neutral objects.';
+test_json.task_test.Description = 'Participants completed an incidental recognition test. Participants were presented whole scenes from the study phase decomposed into objects and background scene components and lure scene components';
 test_json.scene_type_resp_keys.Description = 'Participants memory response: 1 = old, 0 = new';
 test_json.scene_type_resp_rt.Description = 'Participants memory response reaction times';
 test_json.test_item_resp.Description = 'Participants memory response: 1 = old, 0 = new';
@@ -60,14 +79,24 @@ test_json.image.Description = 'Scene component (object or background) image name
 test_json.sc_image.Description = 'Scene component (object or background) image name';
 test_json.sc_type.Description = 'Scene component type: object, background';
 test_json.sc_valence.Description = 'Scene component valence: negative, neutral';
+
+
+original_scene
+scene_code
+scene_valence
+date
+cb
+id
+test_resp_acc
+
 test_json.sc_code.Description = 'Scene component code that maps to unique whole scene id from study phase: 1-180, nan for foil images';
-test_json.old_new.Description = 'Scene component memory type: old (previously seen), new (lure item)';
-test_json.original_scene.Description = 'Original scenes that the objects and backgrounds were decomposed from. NaN for lure items';
-test_json.scene_code.Description = 'Scene component code that maps to unique whole scene id from study phase: 1-180, nan for foil images';
-test_json.scene_valence.Description = 'Original scene valence: negative, neutral, na for new/lure items. ';
-test_json.date.Description = 'Participants task completion date';
-test_json.cb.Description = 'Participants counterbalance: A, B, C';
-test_json.id.Description = 'Participant ID';
-test_json.test_resp_acc.Description = 'Numerically mark if trial is good (1) or bad (0) based on if participants test performance (item memory and using entire range of confidence scale), see prereg for more information ';
+test_json.old_new.Description = 'Scene component memory type: old (previu, new';
+test_json.test_resp.Description = 'Participants memory response on confidence scale (6[sure old]-1[sure new])';
+test_json.test_rt.Description = 'Participants memory reaction times for test response';
+test_json.study_resp.Description = 'Participants study judgment response (Y:1/N:2) and -99 for no responses';
+test_json.study_rt.Description = 'Participants study judgment response reaction time with -99 for no reponses';
+test_json.correct_hand.Description = 'Numerically mark if participants used correct hand during study judgment: 1 (yes) , 0 (no)';
+test_json.study_nr.Description = 'Participant no response for study judgment';
+test_json.good_trial.Description = 'Numerically mark if trial is good (1) or bad (0) based on if participants test performance (item memory and using entire range of confidence scale), see prereg for more information ';
 json_options.indent               = '    '; % this makes the json look prettier when opened in a txt editor
 jsonwrite(test_json_file,test_json,json_options);
