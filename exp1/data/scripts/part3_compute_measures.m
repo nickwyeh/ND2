@@ -305,8 +305,6 @@ meta_cumulative_data = vertcat(meta_cumulative_data, ...
     {2 'uninformed' roc_data.observed_data.target.cumulative(2,5) roc_data.observed_data.lure.cumulative(2,5) }, ...
     {1 'uninformed' roc_data.observed_data.target.cumulative(2,6) roc_data.observed_data.lure.cumulative(2,6) } );
      
-
 % save data for ROC graphs
 writetable(meta_data,fullfile(directories.analyses,'meta_person.csv'),'FileType','text','Delimiter',',');
 writetable(meta_cumulative_data,fullfile(directories.analyses,'meta_average.csv'),'FileType','text','Delimiter',',');
-

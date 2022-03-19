@@ -1,10 +1,5 @@
 %% Organize data from sourcedata
-
-%%% NEED TO UPDATE THIS HEADER INFO WITH THE TEST TRIAL ISSUE %%%
-%%% THIS SHOULD BE LABELED AS A DEVIATION %%%
-
-% This script organizes data from sourcedata 
-
+% To do, clean up stay/switch code with more informative variable names.
 %% Clear workspace
 clear all;
 clc;
@@ -89,7 +84,7 @@ for pari = 1:length(participant_list)
         % Get the current trial's response and study judgment
         this_resp = study_data.study_resp_keys(respi);
         this_task = study_data.study_judgment(respi);
-        
+ 
         % Code for the response code (1=yes, 2=no)
         if ismember(this_resp,{'j' 'f'})
             study_data.study_resp(respi) = 1;
@@ -112,25 +107,25 @@ for pari = 1:length(participant_list)
     study_data.study_nr = double(study_data.study_resp == -99);
     study_data.good_trial = double( study_data.correct_hand & ~study_data.study_nr );
     
-     % Create study_judgment accuracy variable.
+    % Create study_judgment accuracy variable for reviewer comments.
     cap_no = {'N','n'};
     cap_yes = {'Y','y'};
     for yn = 1:size(study_data,1)
-        if ismember(study_data.study_judgment(yn),'manmade')& ismember(study_data.manmade(yn),cap_no)
+        if ismember(study_data.study_judgment(yn), 'manmade') & ismember(study_data.manmade(yn), cap_no)
             study_data.study_judgment_correct_resp(yn) = 2;
-        elseif ismember(study_data.study_judgment(yn),'manmade')& ismember(study_data.manmade(yn),cap_yes)
+        elseif ismember(study_data.study_judgment(yn), 'manmade') & ismember(study_data.manmade(yn), cap_yes)
             study_data.study_judgment_correct_resp(yn) = 1;
-        elseif ismember(study_data.study_judgment(yn),'shoebox')& ismember(study_data.shoebox(yn),cap_no)
+        elseif ismember(study_data.study_judgment(yn), 'shoebox') & ismember(study_data.shoebox(yn), cap_no)
             study_data.study_judgment_correct_resp(yn) = 2;
-        elseif ismember(study_data.study_judgment(yn),'shoebox')& ismember(study_data.shoebox(yn),cap_yes)
-            study_data.study_judgment_correct_resp(yn) = 1;     
+        elseif ismember(study_data.study_judgment(yn), 'shoebox') & ismember(study_data.shoebox(yn), cap_yes)
+            study_data.study_judgment_correct_resp(yn) = 1;
         end
     end
- % code stay/switch trials 
     
-    study_data.stayswitch                      = repmat({'na'},size(study_data,1),1); % initialize
-    switch1        = zeros(size(study_data,1),1); % Initialize
-    stay1   = zeros(size(study_data,1),1); % Initialize
+    % Add code to look at stay/switch trials. 
+    study_data.stayswitch = repmat({'na'},size(study_data,1),1); 
+    switch1               = zeros(size(study_data, 1),1);
+    stay1                 = zeros(size(study_data,1),1);
     
     %Stay trials are shoebox-shoebox, or manmade-manmade
     %Switch trials are shoebox-manmade,manmade-shoebox
@@ -149,10 +144,11 @@ for pari = 1:length(participant_list)
         
     end
     % find start and lengeth of stay trials
+    % To do: clean up variable names with informative names.
     d = diff([0; stay1==1; 0]);
     startidx = find(d==1); %contains first stay value
     lgt = find(d==-1)-startidx ;%contains the number of consec stay trials for the start idx
-    study_data.stayswitch_run                      = repmat({'na'},size(study_data,1),1); % initialize vector
+    study_data.stayswitch_run   = repmat({'na'},size(study_data,1),1); 
     
     % code stay0, stay1, stay2....stayn'th values.
     for i = 1:length(startidx)
@@ -170,13 +166,12 @@ for pari = 1:length(participant_list)
                 si = startidx(i);
                 si = si + counter;
                 study_data.stayswitch_run(si) = {c};
-                
             end
             counter = counter + 1;
-            
         end
     end
-    % find the start and number of consec switch trials
+    % find the start and number of consecutive switch trials
+    % To do: clean up variable names.
     d = diff([0; switch1==1; 0]);
     startidx = find(d==1);
     lgt = find(d==-1)-startidx;
@@ -189,7 +184,6 @@ for pari = 1:length(participant_list)
             
             if ii == 1
                 study_data.stayswitch_run(startidx(i)) = {c};
-                
             else
                 si = startidx(i);
                 si = si + counter;
@@ -204,7 +198,7 @@ for pari = 1:length(participant_list)
         'nletters' 'freq' 'nsyllables' 'concreteness' 'item_type' 'study_judgment' ...
         'study_condition' 'study_resp_keys' 'study_resp' 'study_resp_rt' ...
         'correct_hand' 'study_judgment_correct_resp' 'study_nr' 'good_trial' 'stayswitch' 'stayswitch_run'};
-    study_data = study_data(:,new_col_order); 
+    study_data = study_data(:,new_col_order);
     cols_to_rename = {'item_type' 'study_condition' 'study_resp_keys' 'study_resp_rt'};
     new_col_names  = {'old_new' 'cue_condition' 'study_resp_key' 'study_rt'};
     study_data.Properties.VariableNames(cols_to_rename) = new_col_names;
@@ -235,7 +229,7 @@ for pari = 1:length(participant_list)
     new_col_order = {'id' 'stim_set' 'psychopyVersion'  'word' 'manmade' 'shoebox' ...
         'nletters' 'freq' 'nsyllables' 'concreteness' 'item_type' 'study_judgment' ...
         'study_condition' 'test_resp_response' 'test_resp_rt' };
-    test_data = test_data(:,new_col_order); 
+    test_data = test_data(:,new_col_order);
     cols_to_rename = {'item_type' 'study_condition' 'test_resp_response' 'test_resp_rt'};
     new_col_names  = {'old_new' 'cue_condition' 'test_resp' 'test_rt'};
     test_data.Properties.VariableNames(cols_to_rename) = new_col_names;
@@ -275,7 +269,6 @@ for pari = 1:length(participant_list)
             test_data.stayswitch(trli)       = study_data.stayswitch(study_idx);
             test_data.stayswitch_run(trli)   = study_data.stayswitch_run(study_idx);
             
-            
         end
         
     end
@@ -298,4 +291,3 @@ end
 %% Save the participant log to BIDS
 par_tsv_file = fullfile(directories.raw,'participants.tsv');
 writetable(par_log,par_tsv_file,'FileType','text','Delimiter','\t');
-        

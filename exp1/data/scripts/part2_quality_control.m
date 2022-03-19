@@ -161,6 +161,4 @@ writetable(par_log,par_tsv_file,'FileType','text','Delimiter','\t');
 %% Save participant log to analyses (remove 'bad' status subjects
 par_tsv_file = fullfile(directories.data_files,'participants.tsv');
 par_log(strcmpi(par_log.status,'bad'),:) = [];
-writetable(par_log, par_tsv_file, 'FileType','text','Delimiter','\t');
-
-        
+writetable(par_log, par_tsv_file, 'FileType','text','Delimiter','\t');     
