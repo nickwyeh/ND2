@@ -18,23 +18,23 @@ knitr::opts_chunk$set(echo = FALSE, include = FALSE, message = FALSE)
 
 # ggplot themes.
 this_theme <- theme(    
-  panel.background    = element_blank() ,            #   control the major gridlines 
-  panel.grid.major.y  = element_line() ,             #   suppress the vertical grid lines
-  panel.grid.major.x  = element_blank() ,            #   suppress the minor grid lines
-  panel.grid.minor    = element_blank() ,            #   add axes
-  axis.text           = element_text(size=20, family="Times", colour='black'),   #   tick labels' size, font & color. 
-  axis.line.x         = element_line( size=.8),   #   adjust the axis ticks
-  axis.line.y         = element_line( size=.8),
-  axis.ticks          = element_line( size=.8, colour='black'),   #   axis colors and thickness 
-  axis.title.y        = element_text( angle=90, vjust= 1.5, hjust=.47,    
-                                      size=20, family="Times"),  
-  axis.title.x        = element_text(vjust=-.5, hjust = .505,                    
-                                      size=20, family="Times"),                   
-  plot.title = element_text (size=20, family="Times", colour='black', face = 'bold'),
-  legend.text = element_text(size=20, family="Times"),
-  legend.title = element_text(size=20, family="Times", face = 'bold'),
-  plot.subtitle = element_text(size=20,  face="bold", color="black")
-  )
+  panel.background    = element_blank(),            #   control the major gridlines 
+  panel.grid.major.y  = element_line(),             #   suppress the vertical grid lines
+  panel.grid.major.x  = element_blank(),            #   suppress the minor grid lines
+  panel.grid.minor    = element_blank(),            #   add axes
+  axis.text           = element_text(size = 20, family = "Times", colour = 'black'),   #   tick labels' size, font & color. 
+  axis.line.x         = element_line(size = .8),   #   adjust the axis ticks
+  axis.line.y         = element_line(size = .8),
+  axis.ticks          = element_line(size = .8, colour = 'black'),   #   axis colors and thickness 
+  axis.title.y        = element_text(angle = 90, vjust = 1.5, hjust = .47,    
+                                     size = 20, family = "Times"),  
+  axis.title.x        = element_text(vjust = -.5, hjust = .505,                    
+                                     size = 20, family = "Times"),                   
+  plot.title          = element_text (size = 20, family = "Times", colour ='black', face = 'bold'),
+  legend.text         = element_text(size = 20, family = "Times"),
+  legend.title        = element_text(size = 20, family = "Times", face = 'bold'),
+  plot.subtitle       = element_text(size = 20, face = "bold", color = "black")
+)
 
 # Raincloud plot function
 make_cloud_plot <- function(df1, df2, dv,memory_measure) {
@@ -109,29 +109,23 @@ make_diff_plot <- function(df1, df2) {
 
 # All models use KR method for degrees of freedom estimation
 # Model nesting determined from https://www.muscardinus.be/2017/07/lme4-random-effects/
-# we should have nested data where id is nested within experiment
+# we  have nested data where id is nested within experiment
 
 #Load data for experiments 1-4 with cue condition (informed, uninformed, and no cue) for corrected hit rates, Recollection (Ro), familiarity (F), and source memory scores
 df <- read.csv('memory_long_exp_1234.csv')
 df$exp.id = interaction(df$exp, df$id)
 df_wide <- read.csv('memory_wide_exp_1234.csv')
-
-# Uncomment to only run data from 2, 3, and 4 with source memory
-# df <- subset(df, df$exp %in% c('exp2','exp3','exp4'))
-# df$id <- as.factor(as.character(df$id))
-# df$exp <- as.factor(as.character(df$exp))
-
 ```
 
 ## Overview
 
-LME analyses were conducted our 4 memory measures with cue condition as the fixed effect. We included a random effect for experiment (exp) and included a nested random factor for participants (id) being nested within experiments. 
+Linear mixed effects (LME) analyses were conducted on our 4 memory measures (item pr, Ro, F, source memory) with cue condition as the fixed effect. We included a random effect for experiment (exp) and included a nested random factor for participants (id) being nested within experiments. 
 
 ### Corrected Hit Rates
 
 ```{r corrected hit rates model, include=TRUE}
 # Run the item model
-item_model <- mixed(item_pr ~ cue_condition + (1|exp) + (1|exp:id), data=df)
+item_model <- mixed(item_pr ~ cue_condition + (1|exp) + (1|exp:id), data = df)
 summary(item_model)$varcor 
 nice(item_model)
 item_es <- F_to_eta2(item_model$anova_table$`F`,
@@ -157,7 +151,7 @@ item_post_es
 
 ```{r corrected hit rate plot, include = TRUE, fig.cap = "Correct Hit Rate Figure"}
 # Get the modelbased means and standard errors
-item_model_means <- estimate_means(item_model)
+item_model_means                       <- estimate_means(item_model)
 item_model_means$cue_condition_numeric <- c(.4, .8, .6) # Informed, No Cue, Uninformed
 item_model_means$cue_condition_numeric <- item_model_means$cue_condition_numeric + .1
 
@@ -168,20 +162,20 @@ item_diff_df <- df_wide %>%
 item_diff_df$comparison <- as.factor(item_diff_df$comparison)
 
 # Get model contrast estimates (fix the no cue versus uninformed contrast direction)
-item_model_diffs <- estimate_contrasts(item_model, adjust='none')
-item_model_diffs$comparison <- as.factor(c('IVN_cr', 'IVU_cr', 'UVN_cr'))
+item_model_diffs               <- estimate_contrasts(item_model, adjust='none')
+item_model_diffs$comparison    <- as.factor(c('IVN_cr', 'IVU_cr', 'UVN_cr'))
 item_model_diffs$Difference[3] <- abs(item_model_diffs$Difference[3])
-item_model_diffs$CI_low[3] <- item_model_diffs$CI_low[3]*-1
-item_model_diffs$CI_high[3] <- item_model_diffs$CI_high[3]*-1
+item_model_diffs$CI_low[3]     <- item_model_diffs$CI_low[3]*-1
+item_model_diffs$CI_high[3]    <- item_model_diffs$CI_high[3]*-1
 
 # Make the plots
 memory_measure = "Corrected hit rates" # y-axis label
 
-item_cloud <- make_cloud_plot(df, item_model_means, 'item_pr', memory_measure)
-item_diff <- make_diff_plot(item_diff_df, item_model_diffs)
+item_cloud  <- make_cloud_plot(df, item_model_means, 'item_pr', memory_measure)
+item_diff   <- make_diff_plot(item_diff_df, item_model_diffs)
 item_figure <- ggarrange(item_cloud, item_diff,
                          labels = c('A', 'B'),
-                         ncol=2, nrow=1, align='v')
+                         ncol = 2, nrow = 1, align = 'v')
 ggsave('item_figure.png', plot = item_figure, height = 8, width = 10, units = "in", dpi=600)
 ```
 
@@ -189,13 +183,13 @@ ggsave('item_figure.png', plot = item_figure, height = 8, width = 10, units = "i
 
 ```{r Recollection model, include=TRUE}
 # Run the Recollection model
-rec_model <- mixed(Ro ~ cue_condition + (1|exp) + (1|exp:id), data=df)
+rec_model <- mixed(Ro ~ cue_condition + (1|exp) + (1|exp:id), data = df)
 summary(rec_model)$varcor 
 nice(rec_model)
 rec_es <- F_to_eta2(rec_model$anova_table$`F`,
                      rec_model$anova_table$`num Df`,
                      rec_model$anova_table$`den Df`,
-                     ci=.95)
+                     ci = .95)
 rec_es
 ```
 
@@ -215,7 +209,7 @@ rec_post_es
 
 ```{r Recollection plot, include = TRUE, fig.cap = "Recollection Figure"}
 # Get the modelbased means and standard errors
-rec_model_means <- estimate_means(rec_model)
+rec_model_means                       <- estimate_means(rec_model)
 rec_model_means$cue_condition_numeric <- c(.4, .8, .6) # Informed, No Cue, Uninformed
 rec_model_means$cue_condition_numeric <- rec_model_means$cue_condition_numeric + .1
 
@@ -226,11 +220,11 @@ rec_diff_df <- df_wide %>%
 rec_diff_df$comparison <- as.factor(rec_diff_df$comparison)
 
 # Get model contrast estimates (fix the no cue versus uninformed contrast direction)
-rec_model_diffs <- estimate_contrasts(rec_model, adjust='none')
-rec_model_diffs$comparison <- as.factor(c('IVN_ro', 'IVU_ro', 'UVN_ro'))
+rec_model_diffs               <- estimate_contrasts(rec_model, adjust = 'none')
+rec_model_diffs$comparison    <- as.factor(c('IVN_ro', 'IVU_ro', 'UVN_ro'))
 rec_model_diffs$Difference[3] <- abs(rec_model_diffs$Difference[3])
-rec_model_diffs$CI_low[3] <- rec_model_diffs$CI_low[3]*-1
-rec_model_diffs$CI_high[3] <- rec_model_diffs$CI_high[3]*-1
+rec_model_diffs$CI_low[3]     <- rec_model_diffs$CI_low[3]*-1
+rec_model_diffs$CI_high[3]    <- rec_model_diffs$CI_high[3]*-1
 
 # Make the plots
 
@@ -238,26 +232,25 @@ memory_measure = "Recollection" # y-axis label
 
 # informed vs uninformed p values
 # uninformed vs. no cue p values
-rec_cloud <- make_cloud_plot(df, rec_model_means,'Ro',memory_measure)
-rec_diff <- make_diff_plot(rec_diff_df, rec_model_diffs)
+rec_cloud  <- make_cloud_plot(df, rec_model_means,'Ro',memory_measure)
+rec_diff   <- make_diff_plot(rec_diff_df, rec_model_diffs)
 rec_figure <- ggarrange(rec_cloud, rec_diff,
                          labels = c('A', 'B'),
-                         ncol=2, nrow=1, align='v')
+                         ncol = 2, nrow = 1, align = 'v')
 ggsave('Recollection_figure.png', plot = item_figure, height = 8, width = 10, units = "in", dpi=600)
 ```
-
 
 ### Familiarity
 
 ```{r Familiarity model, include=TRUE}
 # Run the Recollection model
-fam_model <- mixed(F ~ cue_condition + (1|exp) + (1|exp:id), data=df)
+fam_model <- mixed(F ~ cue_condition + (1|exp) + (1|exp:id), data = df)
 summary(fam_model)$varcor 
 nice(fam_model)
 fam_es <- F_to_eta2(fam_model$anova_table$`F`,
                      fam_model$anova_table$`num Df`,
                      fam_model$anova_table$`den Df`,
-                     ci=.95)
+                     ci = .95)
 fam_es
 ```
 
@@ -267,17 +260,17 @@ fam_emm <- emmeans(fam_model, 'cue_condition')
 fam_emm
 
 # Compute pairwise contrasts
-fam_pairs <- summary(pairs(fam_emm, adjust='none'))
+fam_pairs <- summary(pairs(fam_emm, adjust = 'none'))
 fam_pairs
 
 # Compute effect sizes
-fam_post_es <- t_to_d(fam_pairs$t.ratio, fam_pairs$df, ci=.95)
+fam_post_es <- t_to_d(fam_pairs$t.ratio, fam_pairs$df, ci = .95)
 fam_post_es
 ```
 
 ```{r Familiarity plot, include = TRUE, fig.cap = "Familiarity Figure"}
 # Get the modelbased means and standard errors
-fam_model_means <- estimate_means(fam_model)
+fam_model_means                       <- estimate_means(fam_model)
 fam_model_means$cue_condition_numeric <- c(.4, .8, .6) # Informed, No Cue, Uninformed
 fam_model_means$cue_condition_numeric <- fam_model_means$cue_condition_numeric + .1
 
@@ -288,11 +281,11 @@ fam_diff_df <- df_wide %>%
 fam_diff_df$comparison <- as.factor(fam_diff_df$comparison)
 
 # Get model contrast estimates (fix the no cue versus uninformed contrast direction)
-fam_model_diffs <- estimate_contrasts(fam_model, adjust='none')
-fam_model_diffs$comparison <- as.factor(c('IVN_f', 'IVU_f', 'UVN_f'))
+fam_model_diffs               <- estimate_contrasts(fam_model, adjust = 'none')
+fam_model_diffs$comparison    <- as.factor(c('IVN_f', 'IVU_f', 'UVN_f'))
 fam_model_diffs$Difference[3] <- abs(fam_model_diffs$Difference[3])
-fam_model_diffs$CI_low[3] <- fam_model_diffs$CI_low[3]*-1
-fam_model_diffs$CI_high[3] <- fam_model_diffs$CI_high[3]*-1
+fam_model_diffs$CI_low[3]     <- fam_model_diffs$CI_low[3]*-1
+fam_model_diffs$CI_high[3]    <- fam_model_diffs$CI_high[3]*-1
 
 # Make the plots
 
@@ -300,25 +293,25 @@ memory_measure = "Familiarity" # y-axis label
 
 # informed vs uninformed p values
 # uninformed vs. no cue p values
-fam_cloud <- make_cloud_plot(df, fam_model_means,'F',memory_measure)
-fam_diff <- make_diff_plot(fam_diff_df, fam_model_diffs)
+fam_cloud  <- make_cloud_plot(df, fam_model_means,'F',memory_measure)
+fam_diff   <- make_diff_plot(fam_diff_df, fam_model_diffs)
 fam_figure <- ggarrange(fam_cloud, fam_diff,
                          labels = c('A', 'B'),
-                         ncol=2, nrow=1, align='v')
-ggsave('Familiarity_figure.png', plot = fam_figure, height = 8, width = 10, units = "in", dpi=600)
+                         ncol = 2, nrow = 1, align = 'v')
+ggsave('Familiarity_figure.png', plot = fam_figure, height = 8, width = 10, units = "in", dpi = 600)
 ```
 
 ### Source memory (pSR)
 
 ```{r Source memory model, include=TRUE}
 # Run the Recollection model
-pSR_model <- mixed(sourcePr ~ cue_condition + (1|exp) + (1|exp:id), data=df)
+pSR_model <- mixed(sourcePr ~ cue_condition + (1|exp) + (1|exp:id), data = df)
 summary(pSR_model)$varcor 
 nice(pSR_model)
 pSR_es <- F_to_eta2(pSR_model$anova_table$`F`,
                      pSR_model$anova_table$`num Df`,
                      pSR_model$anova_table$`den Df`,
-                     ci=.95)
+                     ci = .95)
 pSR_es
 ```
 
@@ -328,17 +321,17 @@ pSR_emm <- emmeans(pSR_model, 'cue_condition')
 pSR_emm
 
 # Compute pairwise contrasts
-pSR_pairs <- summary(pairs(pSR_emm, adjust='none'))
+pSR_pairs <- summary(pairs(pSR_emm, adjust = 'none'))
 pSR_pairs
 
 # Compute effect sizes
-pSR_post_es <- t_to_d(pSR_pairs$t.ratio, pSR_pairs$df, ci=.95)
+pSR_post_es <- t_to_d(pSR_pairs$t.ratio, pSR_pairs$df, ci = .95)
 pSR_post_es
 ```
 
 ```{r Source memory plot, include = TRUE, fig.cap = "Source memory Figure"}
 # Get the modelbased means and standard errors
-pSR_model_means <- estimate_means(pSR_model)
+pSR_model_means                       <- estimate_means(pSR_model)
 pSR_model_means$cue_condition_numeric <- c(.4, .8, .6) # Informed, No Cue, Uninformed
 pSR_model_means$cue_condition_numeric <- pSR_model_means$cue_condition_numeric + .1
 
@@ -349,11 +342,11 @@ pSR_diff_df <- df_wide %>%
 pSR_diff_df$comparison <- as.factor(pSR_diff_df$comparison)
 
 # Get model contrast estimates (fix the no cue versus uninformed contrast direction)
-pSR_model_diffs <- estimate_contrasts(pSR_model, adjust='none')
-pSR_model_diffs$comparison <- as.factor(c('IVN_psr', 'IVU_psr', 'UVN_psr'))
+pSR_model_diffs               <- estimate_contrasts(pSR_model, adjust='none')
+pSR_model_diffs$comparison    <- as.factor(c('IVN_psr', 'IVU_psr', 'UVN_psr'))
 pSR_model_diffs$Difference[3] <- abs(pSR_model_diffs$Difference[3])
-pSR_model_diffs$CI_low[3] <- pSR_model_diffs$CI_low[3]*-1
-pSR_model_diffs$CI_high[3] <- pSR_model_diffs$CI_high[3]*-1
+pSR_model_diffs$CI_low[3]     <- pSR_model_diffs$CI_low[3]*-1
+pSR_model_diffs$CI_high[3]    <- pSR_model_diffs$CI_high[3]*-1
 
 # Make the plots
 
@@ -365,6 +358,6 @@ pSR_cloud <- make_cloud_plot(df, pSR_model_means,'sourcePr',memory_measure)
 pSR_diff <- make_diff_plot(pSR_diff_df, pSR_model_diffs)
 pSR_figure <- ggarrange(pSR_cloud, pSR_diff,
                          labels = c('A', 'B'),
-                         ncol=2, nrow=1, align='v')
-ggsave('Source_memory_figure.png', plot = pSR_figure, height = 8, width = 10, units = "in", dpi=600)
+                         ncol = 2, nrow = 1, align = 'v')
+ggsave('Source_memory_figure.png', plot = pSR_figure, height = 8, width = 10, units = "in", dpi = 600)
 ```
