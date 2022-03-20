@@ -1,4 +1,14 @@
-%% Organize data from sourcedata
+%% Organize data script
+% This script requires sourcedata and ouputs to raw data directory. 
+
+% Step 1: Gather Participant ID and make directories
+% Step 2: Load and clean up study data variables
+% To do for Step 2, clean up stay/switch code with more informative variable names.
+% Step 3: Load and clean up test data
+% Step 4: Combine Study and Test data Tables
+% Step 5: Save the data files
+% Step 6: Update participant log
+
 % To do, clean up stay/switch code with more informative variable names.
 %% Clear workspace
 clear all;

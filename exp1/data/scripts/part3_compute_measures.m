@@ -1,11 +1,17 @@
 %% Data Analysis
+% Step 1: Gather Participant ID and make directories
+% Step 2: Prepare Data for ROC Analysis
+% Step 3: Fit with roc_solver and extract relevant memory data
+% Step 4: Reviewer comments addition
+% Step 5: Store memory data in data frames
+% Step 6: Analysis of median RTs by cue condition and subsequent memory
+% Step 7: Export summary data
+% Step 8: Fit and export aggregate hits and lures for ROC plots
 
-%ROCs for participant 
+%ROCs for participant
 %Computes memory (hits/FA, item_pr, F, Ro) and organizes studyRT's for informed/uninformed conditions.
 %Outputs memory and RT data.
 %Outputs ROC proportions
-
-
 %% Clear workspace
 clear all;
 clc;
@@ -29,7 +35,7 @@ par_log_opts = detectImportOptions(par_log_file, 'FileType', 'text' );
 par_log      = readtable( par_log_file, par_log_opts );
 
 %% Initialize output data (cell array)
-% Create an empty cell arrays to store data. Data will be in long format
+
 conf_data   = cell2table( cell(0,4), ...
     'VariableNames',{'id' 'cue_condition' 'conf_bin' 'proportion'} );
 hit_fa_data   = cell2table( cell(0,3), ...
@@ -38,17 +44,16 @@ mem_acc_data  = cell2table( cell(0,6), ...
     'VariableNames',{'id' 'cue_condition' 'auc' 'item_pr' 'Ro' 'F'} );
 study_rt_data = cell2table( cell(0,4), ...
     'VariableNames',{'id' 'cue_condition' 'subsequent_memory' 'median_rt'} );
-
 study_acc_data = cell2table( cell(0,4),...
-'VariableNames', {'id'  'cue_condition' 'correct_hand' 'proportion'});
-
+    'VariableNames', {'id'  'cue_condition' 'correct_hand' 'proportion'});
 pivot_table = array2table(zeros(0,24), 'VariableNames',{'id','stim_set','psychopyVersion','word','manmade','shoebox',...
     'nletters','freq','nsyllables','concreteness','old_new','study_judgment','cue_condition','test_resp','test_rt',...
     'study_judgment_correct_resp','stayswitch','stayswitch_run','study_resp','study_rt','correct_hand','study_nr',...
     'good_trial', 'trial'});
+
 % set up variables for aggregate ROC plots
- meta_targf = [0 0 0 0 0 0 ;0 0 0 0 0 0 ];
- meta_luref = [0 0 0 0 0 0 ;0 0 0 0 0 0 ];
+meta_targf = [0 0 0 0 0 0 ;0 0 0 0 0 0 ];
+meta_luref = [0 0 0 0 0 0 ;0 0 0 0 0 0 ];
 
 %% Loop through participants
 for pari = 1:size(par_log,1)
@@ -108,7 +113,7 @@ for pari = 1:size(par_log,1)
     [x0,lb,ub] = gen_pars(model,nBins,nConds,parNames);
     lb(:,3) = 0; % Change F lower bound to 0
     
-    % Specify     
+    % Specify
     roc_data = roc_solver(targf,luref,model,fitStat,x0,lb,ub, ...
         'subID',id, ...
         'modelID',modelID, ...
@@ -120,7 +125,7 @@ for pari = 1:size(par_log,1)
     
     % Save roc_data to .mat file
     save(fullfile(directories.par_analysis,sprintf('sub-%s_desc-rocdata.mat',id)));
-
+    
     % Get values out for short-hand variable naming
     informed_hits        = roc_data.observed_data.accuracy_measures.HR(1);
     uninformed_hits      = roc_data.observed_data.accuracy_measures.HR(2);
@@ -134,24 +139,24 @@ for pari = 1:size(par_log,1)
     informed_F           = roc_data.dpsd_model.parameters.F(1);
     uninformed_F         = roc_data.dpsd_model.parameters.F(2);
     
-     %% Check study judgment accuracy (reviewer comments)
-    study_trial = ismember(test_data.old_new,'old');
+    %% Step 4 Check study judgment accuracy (reviewer comments)
+    study_trial           = ismember(test_data.old_new,'old');
     % 1 = yes, 2 = no
-    study_hit = (ismember(test_data.study_resp,1) & ismember(test_data.study_judgment_correct_resp,1))|...
-    (ismember(test_data.study_resp,2) & ismember(test_data.study_judgment_correct_resp,2));
-
-    study_hand_hit = (ismember(test_data.old_new,'old') & ismember(test_data.correct_hand,1));
-
-    informed_study = mean(study_hit(old_trial & good_trial & informed));
-    uninformed_study = mean(study_hit(old_trial & good_trial & uninformed));
+    study_hit             = (ismember(test_data.study_resp,1) & ismember(test_data.study_judgment_correct_resp,1)) ...
+        | (ismember(test_data.study_resp,2) & ismember(test_data.study_judgment_correct_resp,2));
     
-    informed_study_hand = mean(study_hand_hit(old_trial  & informed));
+    study_hand_hit        = (ismember(test_data.old_new,'old') & ismember(test_data.correct_hand,1));
+    
+    informed_study        = mean(study_hit(old_trial & good_trial & informed));
+    uninformed_study      = mean(study_hit(old_trial & good_trial & uninformed));
+    
+    informed_study_hand   = mean(study_hand_hit(old_trial  & informed));
     uninformed_study_hand = mean(study_hand_hit(old_trial  & uninformed));
     
-    study_acc_data =  vertcat(study_acc_data, ...
+    study_acc_data        =  vertcat(study_acc_data, ...
         {id  'informed' informed_study_hand informed_study}, ...
         {id  'uninformed' uninformed_study_hand uninformed_study});
-    %% Step 4: Store memory data in data frames
+    %% Step 5: Store memory data in data frames
     % Store confidence data
     conf_data = vertcat(conf_data, ...
         {id 'informed' 6 roc_data.observed_data.target.proportions(1,1)}, ...
@@ -186,14 +191,14 @@ for pari = 1:size(par_log,1)
         {id 'uninformed' uninformed_auc uninformed_cor_recog uninformed_Ro uninformed_F } );
     % unstack to wide format
     memory_acc_data_wide = unstack(mem_acc_data,{'auc','item_pr','Ro','F'},'cue_condition');
-
-       % create pivot table
+    
+    % create pivot table
     % Add trial numbers
     for ii = 1:size(test_data,1)
         test_data.trial(ii) = ii;
     end
     pivot_table = vertcat(pivot_table,test_data);
-    %% Step 5: Analysis of median RTs by cue condition and subsequent memory
+    %% Step 6: Analysis of median RTs by cue condition and subsequent memory
     % Gather trials of use
     old_resp  = ismember(test_data.test_resp,4:6); % Get vector of old item responses
     study_rts = test_data.study_rt; % Get out RTs now
@@ -204,8 +209,8 @@ for pari = 1:size(par_log,1)
         {id 'informed' 'miss' median(study_rts(informed & old_trial & ~old_resp & good_trial))},...
         {id 'uninformed' 'hit' median(study_rts(~informed & old_trial & old_resp & good_trial))},...
         {id 'uninformed' 'miss' median(study_rts(~informed & old_trial & ~old_resp & good_trial))} );
-
-    %% step 6: store aggregate hits and lures for ROC plots
+    
+    %% Step 7: store aggregate hits and lures for ROC plots
     temp_targf = [];
     temp_luref = [];
     c = 1; % counter
@@ -223,6 +228,10 @@ for pari = 1:size(par_log,1)
     end
 end
 
+
+
+%% % Step 7: Export summary data: Write ALL memory and reaction time data tables to file
+
 study_acc_data_wide = unstack(study_acc_data,{'correct_hand' 'proportion'},'cue_condition');
 % Study RT to wide
 study_rt_data_wide = unstack(study_rt_data,'median_rt','cue_condition');
@@ -232,8 +241,6 @@ study_rt_data_wide.Properties.VariableNames(5:end) = ...
 
 % Join the three wide data tables
 all_data_wide = join(memory_acc_data_wide,study_rt_data_wide);
-
-%% Write ALL memory and reaction time data tables to file
 writetable(study_acc_data_wide,fullfile(directories.analyses,'study_acc_data_wide.csv'));
 
 writetable(conf_data,fullfile(directories.analyses,'conf_data_long.csv'),'FileType','text','Delimiter','\t');
@@ -244,40 +251,40 @@ writetable(all_data_wide,fullfile(directories.analyses,'all_data_wide.csv'));
 writetable(study_rt_data_wide, fullfile(directories.analyses,'studyrt_wide.csv'));
 writetable(pivot_table,fullfile(directories.analyses,'pivot_table.csv'));
 
-%% Step 7 get ROC values aggregated across participants, Fit with roc_solver
-    % Specify model design options
-    model = 'dpsd';
-    [nConds, nBins] = size(meta_targf);
-    parNames = {'Ro' 'F'};
-    ignoreConds = 2; % Ignore fit values for 2nd row in luref (2 old, 1 new design)
-    fitStat = '-LL';
-    
-    % Specify other options for bookkeeping
-    condLabels = {'Informed' 'Uninformed'};
-    modelID = 'dpsd';
-    
-    % Specify optimization options
-    options = optimset('fmincon');
-    options.Display = 'notify';
-    options.MaxFunEvals = 100000;
-    options.TolX = 1e-10; % Set options of tolerance for parameter changes
-    
-    % Initialize parameter matrix and bounds
-    [x0,lb,ub] = gen_pars(model,nBins,nConds,parNames);
-    lb(:,3) = 0; % Change F lower bound to 0
-    
-    % Specify
-    roc_data = roc_solver(meta_targf,meta_luref,model,fitStat,x0,lb,ub, ...
-        'subID',id, ...
-        'modelID',modelID, ...
-        'condLabels',condLabels, ...
-        'ignoreConds',ignoreConds, ...
-        'options', options, ...
-        'saveFig', directories.par_analysis, ...
-        'figTimeout', 1);
-    
+%% Step 8 get ROC values aggregated across participants, Fit with roc_solver
+% Specify model design options
+model = 'dpsd';
+[nConds, nBins] = size(meta_targf);
+parNames = {'Ro' 'F'};
+ignoreConds = 2; % Ignore fit values for 2nd row in luref (2 old, 1 new design)
+fitStat = '-LL';
+
+% Specify other options for bookkeeping
+condLabels = {'Informed' 'Uninformed'};
+modelID = 'dpsd';
+
+% Specify optimization options
+options = optimset('fmincon');
+options.Display = 'notify';
+options.MaxFunEvals = 100000;
+options.TolX = 1e-10; % Set options of tolerance for parameter changes
+
+% Initialize parameter matrix and bounds
+[x0,lb,ub] = gen_pars(model,nBins,nConds,parNames);
+lb(:,3) = 0; % Change F lower bound to 0
+
+% Specify
+roc_data = roc_solver(meta_targf,meta_luref,model,fitStat,x0,lb,ub, ...
+    'subID',id, ...
+    'modelID',modelID, ...
+    'condLabels',condLabels, ...
+    'ignoreConds',ignoreConds, ...
+    'options', options, ...
+    'saveFig', directories.par_analysis, ...
+    'figTimeout', 1);
+
 % Store aggregated across participants predicted values
-    save(fullfile(directories.par_analysis,'meta_roc_data.mat'),'roc_data');
+save(fullfile(directories.par_analysis,'meta_roc_data.mat'),'roc_data');
 meta_data = cell2table(  cell(0,4),...
     'VariableNames', {'meta' 'informed' 'uninformed' 'Fa_pred'});
 
@@ -304,7 +311,7 @@ meta_cumulative_data = vertcat(meta_cumulative_data, ...
     {3 'uninformed' roc_data.observed_data.target.cumulative(2,4) roc_data.observed_data.lure.cumulative(2,4) }, ...
     {2 'uninformed' roc_data.observed_data.target.cumulative(2,5) roc_data.observed_data.lure.cumulative(2,5) }, ...
     {1 'uninformed' roc_data.observed_data.target.cumulative(2,6) roc_data.observed_data.lure.cumulative(2,6) } );
-     
+
 % save data for ROC graphs
 writetable(meta_data,fullfile(directories.analyses,'meta_person.csv'),'FileType','text','Delimiter',',');
 writetable(meta_cumulative_data,fullfile(directories.analyses,'meta_average.csv'),'FileType','text','Delimiter',',');

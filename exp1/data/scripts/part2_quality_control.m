@@ -1,6 +1,6 @@
-%% Quality Control Data
+%% Quality Control script
 % This script organizes data from sourcedata and performs some quality
-% control checks to test for good data. This follows the pre-registered
+% control checks to test for good data. Quality control follows the pre-registered
 % criteria found on OSF (https://osf.io/4amct). These include:
 %
 % 1) Overall memory performance < .10 (determined by Hit Rate - False Alarm
@@ -11,7 +11,14 @@
 %    across item type and study condition). 
 %
 % Subjects excluded for one of the above reasons are labeled as bad in the
-% participants.tsv file.
+% participants.tsv file in raw directory. Data is outputed to data_files directory.
+% Step 1: Gather Participant id
+% Step 2: Load the test data
+% Step 3: Compute proportion of bad study trials
+% Step 4: Compute Proportion of Confidence Bin 2-5 Use >=.1
+% Step 5: Compute item pR collapsed over cue condition
+% Step 6: Determine if subject is good or bad
+% Step 7: Copy subject data to analysis folder if good
 
 %% Clear workspace
 clear all;
@@ -67,7 +74,7 @@ for pari = 1:size(par_log,1)
     mem_perf_good         = true; % item pR >= .1
     conf_resp_rate_good   = true; % proportion use of confidenc
     
-    %% Step 2: Load the test data (which can be used for all analyses
+    %% Step 2: Load the test data
     % Load data
     test_file = fullfile( directories.par_data, sprintf('sub-%s_task-test.tsv', id) ); 
     test_opts = detectImportOptions( test_file, 'FileType', 'text' );
