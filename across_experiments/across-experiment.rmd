@@ -1,6 +1,8 @@
 ---
 title: "Across experiment analysis"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -76,7 +78,7 @@ make_cloud_plot <- function(df1, df2, dv,memory_measure) {
 
 # Difference Violin function
 #lines 92,93, and 94 need to be adjusted with correct location on y-axis (y variable) and p value to display for corrected hit rates, familiarity estimates, recollection (need to be removed), and source memory.
-make_diff_plot <- function(df1, df2) {
+make_diff_plot <- function(df1, df2,sign_values,sign_location) {
   plot <- ggplot(data=df1, aes(x=as.numeric(comparison), y=difference)) +
     geom_violin(aes(x = as.numeric(comparison), group = comparison, color = "grey"),
                 position = position_nudge(x = 0, y = 0), adjust = .7, trim = TRUE,
@@ -88,9 +90,9 @@ make_diff_plot <- function(df1, df2) {
                data = df2,
                shape = 18, size= 3.5, color = "black") +
     geom_hline(aes(yintercept=0), linetype='dotted', size=.8) +
-    annotate("text", x = 1, y = .05, label = "p < .001", size = 4) +
-    annotate("text", x = 2, y = .05, label = "p = .024", size = 4) +
-    annotate("text", x = 3, y = .05, label = "p < .001", size = 4) +   
+    annotate("text", x = 1, y = sign_location, label = sign_values[1], size = 4) +
+    annotate("text", x = 2, y = sign_location, label = sign_values[2], size = 4) +
+    annotate("text", x = 3, y = sign_location, label = sign_values[3], size = 4) +   
     scale_x_continuous(breaks = c(1,2,3),
                        labels= c("informed - no cue","informed - uninformed","uninformed - no cue")) +
     ylab("Difference scores\n") +
@@ -155,6 +157,12 @@ item_model_means                       <- estimate_means(item_model)
 item_model_means$cue_condition_numeric <- c(.4, .8, .6) # Informed, No Cue, Uninformed
 item_model_means$cue_condition_numeric <- item_model_means$cue_condition_numeric + .1
 
+# get p values
+get_pvalues <- scales::pvalue(item_pairs$p.value,
+               accuracy = 0.001, # Number to round to
+               decimal.mark = ".", # The character to be used to indicate the numeric decimal point
+               add_p = TRUE)
+
 # Get the difference score data frame for items
 item_diff_df <- df_wide %>%
    select(participant, IVU_cr, IVN_cr, UVN_cr) %>%
@@ -170,9 +178,11 @@ item_model_diffs$CI_high[3]    <- item_model_diffs$CI_high[3]*-1
 
 # Make the plots
 memory_measure = "Corrected hit rates" # y-axis label
+pvalue_location =  .05
+
 
 item_cloud  <- make_cloud_plot(df, item_model_means, 'item_pr', memory_measure)
-item_diff   <- make_diff_plot(item_diff_df, item_model_diffs)
+item_diff   <- make_diff_plot(item_diff_df, item_model_diffs,get_pvalues,pvalue_location)
 item_figure <- ggarrange(item_cloud, item_diff,
                          labels = c('A', 'B'),
                          ncol = 2, nrow = 1, align = 'v')
@@ -208,6 +218,14 @@ rec_post_es
 ```
 
 ```{r Recollection plot, include = TRUE, fig.cap = "Recollection Figure"}
+# get p values
+get_pvalues <- scales::pvalue(rec_pairs$p.value,
+               accuracy = 0.001, # Number to round to
+               decimal.mark = ".", # The character to be used to indicate the numeric decimal point
+               add_p = TRUE)
+#override p values because cuecondition main effect is not significant. 
+get_pvalues <-c("","","")
+
 # Get the modelbased means and standard errors
 rec_model_means                       <- estimate_means(rec_model)
 rec_model_means$cue_condition_numeric <- c(.4, .8, .6) # Informed, No Cue, Uninformed
@@ -229,15 +247,17 @@ rec_model_diffs$CI_high[3]    <- rec_model_diffs$CI_high[3]*-1
 # Make the plots
 
 memory_measure = "Recollection" # y-axis label
+pvalue_location = .05
+
 
 # informed vs uninformed p values
 # uninformed vs. no cue p values
 rec_cloud  <- make_cloud_plot(df, rec_model_means,'Ro',memory_measure)
-rec_diff   <- make_diff_plot(rec_diff_df, rec_model_diffs)
+rec_diff   <- make_diff_plot(rec_diff_df, rec_model_diffs,get_pvalues,pvalue_location)
 rec_figure <- ggarrange(rec_cloud, rec_diff,
                          labels = c('A', 'B'),
                          ncol = 2, nrow = 1, align = 'v')
-ggsave('Recollection_figure.png', plot = item_figure, height = 8, width = 10, units = "in", dpi=600)
+ggsave('Recollection_figure.png', plot = rec_figure, height = 8, width = 10, units = "in", dpi=600)
 ```
 
 ### Familiarity
@@ -269,6 +289,11 @@ fam_post_es
 ```
 
 ```{r Familiarity plot, include = TRUE, fig.cap = "Familiarity Figure"}
+# get p values
+get_pvalues <- scales::pvalue(fam_pairs$p.value,
+               accuracy = 0.001, # Number to round to
+               decimal.mark = ".", # The character to be used to indicate the numeric decimal point
+               add_p = TRUE)
 # Get the modelbased means and standard errors
 fam_model_means                       <- estimate_means(fam_model)
 fam_model_means$cue_condition_numeric <- c(.4, .8, .6) # Informed, No Cue, Uninformed
@@ -290,11 +315,12 @@ fam_model_diffs$CI_high[3]    <- fam_model_diffs$CI_high[3]*-1
 # Make the plots
 
 memory_measure = "Familiarity" # y-axis label
+pvalue_location = .25
 
 # informed vs uninformed p values
 # uninformed vs. no cue p values
 fam_cloud  <- make_cloud_plot(df, fam_model_means,'F',memory_measure)
-fam_diff   <- make_diff_plot(fam_diff_df, fam_model_diffs)
+fam_diff   <- make_diff_plot(fam_diff_df, fam_model_diffs,get_pvalues,pvalue_location)
 fam_figure <- ggarrange(fam_cloud, fam_diff,
                          labels = c('A', 'B'),
                          ncol = 2, nrow = 1, align = 'v')
@@ -330,6 +356,11 @@ pSR_post_es
 ```
 
 ```{r Source memory plot, include = TRUE, fig.cap = "Source memory Figure"}
+# get p values
+get_pvalues <- scales::pvalue(pSR_pairs$p.value,
+               accuracy = 0.001, # Number to round to
+               decimal.mark = ".", # The character to be used to indicate the numeric decimal point
+               add_p = TRUE)
 # Get the modelbased means and standard errors
 pSR_model_means                       <- estimate_means(pSR_model)
 pSR_model_means$cue_condition_numeric <- c(.4, .8, .6) # Informed, No Cue, Uninformed
@@ -351,11 +382,12 @@ pSR_model_diffs$CI_high[3]    <- pSR_model_diffs$CI_high[3]*-1
 # Make the plots
 
 memory_measure = "Source memory (pSR)" # y-axis label
+pvalue_location = .15
 
 # informed vs uninformed p values
 # uninformed vs. no cue p values
-pSR_cloud <- make_cloud_plot(df, pSR_model_means,'sourcePr',memory_measure)
-pSR_diff <- make_diff_plot(pSR_diff_df, pSR_model_diffs)
+pSR_cloud <- make_cloud_plot(df, pSR_model_means,'sourcePr', memory_measure)
+pSR_diff <- make_diff_plot(pSR_diff_df, pSR_model_diffs,get_pvalues, pvalue_location)
 pSR_figure <- ggarrange(pSR_cloud, pSR_diff,
                          labels = c('A', 'B'),
                          ncol = 2, nrow = 1, align = 'v')
