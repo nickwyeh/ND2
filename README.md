@@ -2,7 +2,7 @@
 ##### Open science framework: https://osf.io/ydmun/.
 
 ##### Across experiment findings:
-* Broadly, prestimulus encoding cues benefitted memory performance and the pattern of memory enhancement varied with how memory was assessed. DSPD estimates of familiarity demonstrated a graded pattern with the informativeness of the prestimulus cues (i.e., informative > uninformative > no cues). In addition, both informative and uninformative prestimulus cues enhanced subsequent source memory accuracy for the encoding task compared to the no cue condition
+* Broadly, prestimulus encoding cues benefitted memory performance and the pattern of memory enhancement varied with how memory was assessed. Dual signal process detection (DSPD) estimates of familiarity demonstrated a graded pattern with the informativeness of the prestimulus cues (i.e., informative > uninformative > no cues). In addition, both informative and uninformative prestimulus cues compared to no prestimulus cues enhanced subsequent source memory accuracy. 
 
 ##### Task overview:
 * Each experiment was comprised a study and test phase and which was built in psychopy (https://www.psychopy.org/) with Experiments 2-4 being host online (https://pavlovia.org/). Note, Experiment 2 also had data collected in-person but it is not currently available in this repo.
