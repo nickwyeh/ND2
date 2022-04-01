@@ -17,7 +17,6 @@
 * `source data` directory contains the original psychopy format behavioral files for each participants. 
 * `raw data` directory contains cleaned behavioral data for each participant with a json file to explain the data. 
 * `data files` directroy contains cleaned data and additional analyses (ROCs) for each participant.
-* `analyses` directory contains summary descriptives of interest.  
-* <p align="center"> <img src="https://github.com/nickwyeh/ND2/blob/main/figures/data_structure.png" width="400">  </p>
+* `analyses` directory contains summary descriptives of interest.  <p align="center"> <img src="https://github.com/nickwyeh/ND2/blob/main/figures/data_structure.png" width="400">  </p>
  
  
