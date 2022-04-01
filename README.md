@@ -12,6 +12,7 @@
 
  ##### Directory structure overview:
 * An example of the directory/folder structure is depicted below. Note, this follows the principals from the brain imaging data structure (https://bids-specification.readthedocs.io/en/stable/). Briefly this repo contains materials for 4 experiments with the individual tasks and data files nested within each experiment. The psychopy task and required materials are located in the task directory. 
+* `across-experiment` directory contains R code for the liner mixed effects regression analyses and figures. 
 * `scripts` directory contains matlab and R code. All organization, cleaning, and analyses were done with matlab scripts. Data visualzation was done in R. 
 * `source data` directory contains the original psychopy format behavioral files for each participants. 
 * `raw data` directory contains cleaned behavioral data for each participant with a json file to explain the data. 
