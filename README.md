@@ -2,7 +2,7 @@
 ##### Open science framework: https://osf.io/ydmun/.
 
 ##### Across experiment findings:
-* Broadly, prestimulus encoding cues benefitted memory performance and the pattern of memory enhancement varied with how memory was assessed. Dual process estimates of familiarity demonstrated a graded pattern with the informativeness of the prestimulus cues (i.e., informative > uninformative > no cues). In addition, both informative and uninformative prestimulus cues enhanced subsequent source memory accuracy for the encoding task compared to the no cue condition
+* Broadly, prestimulus encoding cues benefitted memory performance and the pattern of memory enhancement varied with how memory was assessed. Dual signal process detection (DSPD) estimates of familiarity demonstrated a graded pattern with the informativeness of the prestimulus cues (i.e., informative > uninformative > no cues). In addition, both informative and uninformative prestimulus cues compared to no prestimulus cues enhanced subsequent source memory accuracy. 
 
 ##### Task overview:
 * Each experiment was comprised a study and test phase and which was built in psychopy (https://www.psychopy.org/) with Experiments 2-4 being host online (https://pavlovia.org/). Note, Experiment 2 also had data collected in-person but it is not currently available in this repo.
@@ -12,11 +12,11 @@
 
  ##### Directory structure overview:
 * An example of the directory/folder structure is depicted below. Note, this follows the principals from the brain imaging data structure (https://bids-specification.readthedocs.io/en/stable/). Briefly this repo contains materials for 4 experiments with the individual tasks and data files nested within each experiment. The psychopy task and required materials are located in the task directory. 
+* `across-experiment` directory contains R code for the liner mixed effects regression analyses and figures. 
 * `scripts` directory contains matlab and R code. All organization, cleaning, and analyses were done with matlab scripts. Data visualzation was done in R. 
 * `source data` directory contains the original psychopy format behavioral files for each participants. 
 * `raw data` directory contains cleaned behavioral data for each participant with a json file to explain the data. 
 * `data files` directroy contains cleaned data and additional analyses (ROCs) for each participant.
-* `analyses` directory contains summary descriptives of interest.  
-* <p align="center"> <img src="https://github.com/nickwyeh/ND2/blob/main/figures/data_structure.png" width="400">  </p>
+* `analyses` directory contains summary descriptives of interest.  <p align="center"> <img src="https://github.com/nickwyeh/ND2/blob/main/figures/data_structure.png" width="400">  </p>
  
  
